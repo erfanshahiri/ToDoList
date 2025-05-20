@@ -1,8 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from django.utils import timezone
 
+
+class Token(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=48, unique=True)
 
 class Daily(models.Model):
     title = models.CharField(_('title'), max_length=50, blank=True, null=True)
@@ -12,8 +15,9 @@ class Daily(models.Model):
     time_needed = models.CharField(_('time_needed'), max_length=50, blank=True, null=True)
     created_time = models.DateTimeField(_('created_time'), auto_now_add=True, blank=True, null=True)
     is_done = models.BooleanField(_('is_done'), default=False)
+
     def __str__(self):
-        return "{}-{}".format(self.title, self.time_todo)
+        return self.title
 
 
 class Weekly(models.Model):
@@ -24,8 +28,9 @@ class Weekly(models.Model):
     time_needed = models.CharField(_('time_needed'), max_length=50, blank=True, null=True)
     created_time = models.DateTimeField(_('created_time'), auto_now_add=True, blank=True, null=True)
     is_done = models.BooleanField(_('is_done'), default=False)
+
     def __str__(self):
-        return "{}-{}".format(self.title, self.time_todo)
+        return self.title
 
 
 class Monthly(models.Model):
@@ -36,8 +41,9 @@ class Monthly(models.Model):
     time_needed = models.CharField(_('time_needed'), max_length=50, blank=True, null=True)
     created_time = models.DateTimeField(_('created_time'), auto_now_add=True, null=True, blank=True)
     is_done = models.BooleanField(_('is_done'), default=False)
+
     def __str__(self):
-        return "{}-{}".format(self.title, self.time_todo)
+        return self.title
 
 
 class Yearly(models.Model):
@@ -48,8 +54,9 @@ class Yearly(models.Model):
     time_needed = models.CharField(_('time_needed'), max_length=50, blank=True, null=True)
     created_time = models.DateTimeField(_('created_time'), auto_now_add=True, null=True, blank=True)
     is_done = models.BooleanField(_('is_done'), default=False)
+
     def __str__(self):
-        return "{}-{}".format(self.title, self.time_todo)
+        return self.title
 
 
 class LongTerm(models.Model):
@@ -60,5 +67,6 @@ class LongTerm(models.Model):
     time_needed = models.CharField(_('time_needed'), max_length=50, blank=True, null=True)
     created_time = models.DateTimeField(_('created_time'), auto_now_add=True, null=True, blank=True)
     is_done = models.BooleanField(_('is_done'), default=False)
+
     def __str__(self):
-        return "{}-{}".format(self.title, self.time_todo)
+        return self.title
